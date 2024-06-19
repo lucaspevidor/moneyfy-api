@@ -6,19 +6,25 @@
   "scripts": {
     "dev": "tsx src/server.ts --watch --no-clear",
     "build": "tsup src/server.ts --minify --out-dir dist",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "seed": "tsx prisma/seed.ts"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@prisma/client": "5.15.1",
     "fastify": "^4.28.0"
   },
   "devDependencies": {
+    "@eslint/js": "^8.56.0",
     "@types/node": "^20.14.6",
+    "eslint": "^8.56.0",
+    "globals": "^15.6.0",
     "prisma": "^5.15.1",
     "tsup": "^8.1.0",
     "tsx": "^4.15.6",
-    "typescript": "^5.4.5"
+    "typescript": "^5.4.5",
+    "typescript-eslint": "^7.13.1"
   }
 }
