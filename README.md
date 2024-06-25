@@ -17,10 +17,10 @@ Moneyfy is a simple application that allows you to manage your personal finances
 
 ### Bank account
 
-[ ] As a user I want to be able to add a new bank account.
-[ ] As a user I want to be able to edit a bank account.
-[ ] As a user I want to be able to delete a bank account.
-[ ] As a user I want to be able to see a list of all my bank accounts.
+[x] As a user I want to be able to add a new bank account.
+[x] As a user I want to be able to edit a bank account.
+[x] As a user I want to be able to delete a bank account.
+[x] As a user I want to be able to see a list of all my bank accounts.
 
 ### Expenses and incomes
 
