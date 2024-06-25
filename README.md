@@ -33,10 +33,10 @@ Moneyfy is a simple application that allows you to manage your personal finances
 
 ### Categories
 
-- [ ] As a user I want to be able to add a new category.
-- [ ] As a user I want to be able to edit a category.
-- [ ] As a user I want to be able to delete a category.
-- [ ] As a user I want to be able to see a list of all my categories.
+- [x] As a user I want to be able to add a new category.
+- [x] As a user I want to be able to edit a category.
+- [x] As a user I want to be able to delete a category.
+- [x] As a user I want to be able to see a list of all my categories.
 
 ### Investments
 
