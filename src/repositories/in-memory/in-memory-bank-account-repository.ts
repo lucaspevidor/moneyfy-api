@@ -31,7 +31,7 @@ export class InMemoryBankAccountRepository implements BankAccountRepository {
     return account;
   }
 
-  async fetchByUserId(userId: string): Promise<BankAccount[] | null> {
+  async fetchByUserId(userId: string): Promise<BankAccount[]> {
     const accounts = this.BankAccounts.filter((a) => a.userId === userId);
 
     return accounts;

@@ -13,7 +13,7 @@ export interface BankAccountUpdateParams {
 export interface BankAccountRepository {
   create(data: Prisma.BankAccountUncheckedCreateInput): Promise<BankAccount>;
   getById(accountId: string): Promise<BankAccount | null>;
-  fetchByUserId(userId: string): Promise<BankAccount[] | null>;
+  fetchByUserId(userId: string): Promise<BankAccount[]>;
   update(data: BankAccountUpdateParams): Promise<BankAccount>;
   delete(accountId: string): Promise<string>;
 }
