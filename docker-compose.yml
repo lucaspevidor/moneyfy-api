@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  postgresql-moneyfy:
+    image: 'bitnami/postgresql:latest'
+    environment:
+      - POSTGRESQL_USERNAME=docker
+      - POSTGRESQL_PASSWORD=docker
+      - POSTGRESQL_DATABASE=moneyfy-api
+    ports:
+      - 5432:5432

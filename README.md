@@ -8,11 +8,12 @@ Moneyfy is a simple application that allows you to manage your personal finances
 
 ### User account
 
-[ ] As a user I want to be able to create an account.
+[x] As a user I want to be able to create an account.
 [ ] As a user I want to be able to log in to my account.
 [ ] As a user I want to be able to log out of my account.
-[ ] As a user I want to be able to change my access information.
-[ ] As a user I want to be able to delete my account.
+[x] As a user I want to be able to access my personal information.
+[x] As a user I want to be able to change my access information.
+[x] As a user I want to be able to delete my account.
 
 ### Bank account
 

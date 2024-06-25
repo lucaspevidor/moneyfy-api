@@ -6,12 +6,12 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
 model User {
-  id      Int    @id @default(autoincrement())
+  id      String @id @default(uuid())
   email   String @unique
   pwdHash String
   name    String
@@ -25,15 +25,15 @@ model User {
 }
 
 model BankAccount {
-  id       Int    @id @default(autoincrement())
+  id       String @id @default(uuid())
   balance  Float
   currency String
   name     String
 
   transactions Transaction[]
 
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 }
 
 model TransactionCategory {
@@ -42,33 +42,30 @@ model TransactionCategory {
 
   transactions Transaction[]
 
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 }
 
-model TransactionType {
-  id   Int    @id @default(autoincrement())
-  name String
-
-  transactions Transaction[]
+enum TransactionType {
+  INCOME
+  EXPENSE
 }
 
 model Transaction {
-  id          Int      @id @default(autoincrement())
+  id          String   @id @default(uuid())
   amount      Float
   currency    String
   date        DateTime
   description String
 
-  type   TransactionType @relation(fields: [typeId], references: [id])
-  typeId Int
+  type TransactionType
 
   bankAccount   BankAccount @relation(fields: [bankAccountId], references: [id])
-  bankAccountId Int
+  bankAccountId String
 
   category   TransactionCategory @relation(fields: [categoryId], references: [id])
   categoryId Int
 
-  user   User @relation(fields: [userId], references: [id])
-  userId Int
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
 }

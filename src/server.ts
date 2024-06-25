@@ -1,8 +1,12 @@
-import { app } from "./app";
+import { app } from "@/app";
+import { env } from "@/env";
+
+const port = env.PORT;
 
 app.listen(
   {
-    port: 3000,
+    port: port,
+    host: "localhost",
   },
   (err, address) => {
     if (err) {
