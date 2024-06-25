@@ -24,8 +24,6 @@ describe("Get user use-case", () => {
       userId: createdUser.id,
     });
 
-    console.log(foundUser);
-
     expect(foundUser.user).toEqual(
       expect.objectContaining({
         id: createdUser.id,
