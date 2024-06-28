@@ -24,12 +24,12 @@ Moneyfy is a simple application that allows you to manage your personal finances
 
 ### Expenses and incomes
 
-- [ ] As a user I want to be able to add a new expense or income.
-- [ ] As a user I want to be able to edit an expense or income.
-- [ ] As a user I want to be able to delete an expense or income.
-- [ ] As a user I want to be able to see a list of all my expenses and incomes.
-- [ ] As a user I want to be able to filter my expenses and incomes by date.
-- [ ] As a user I want to be able to filter my expenses and incomes by category.
+- [x] As a user I want to be able to add a new expense or income.
+- [x] As a user I want to be able to edit an expense or income.
+- [x] As a user I want to be able to delete an expense or income.
+- [x] As a user I want to be able to see a list of all my expenses and incomes.
+- [x] As a user I want to be able to filter my expenses and incomes by date.
+- [x] As a user I want to be able to filter my expenses and incomes by category.
 
 ### Categories
 
