@@ -8,7 +8,8 @@
     "build": "tsup src/server.ts --minify --out-dir dist",
     "start": "node dist/server.js",
     "test": "vitest run --dir src/use-cases",
-    "test:watch": "vitest --dir src/use-cases"
+    "test:watch": "vitest --dir src/use-cases",
+    "test:coverage": "vitest run --coverage --dir src/use-cases"
   },
   "keywords": [],
   "author": "",
