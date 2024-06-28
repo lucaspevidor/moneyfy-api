@@ -4,6 +4,7 @@ import {
   FetchByUserIdAndTransactionCategoryIdParams,
   TransactionFilterType,
   TransactionRepository,
+  TransactionUpdateParams,
 } from "../transaction-repository";
 import { randomUUID } from "node:crypto";
 import dayjs from "dayjs";
@@ -83,6 +84,27 @@ export class InMemoryTransactionRepository implements TransactionRepository {
     }
 
     return transactions.slice((page - 1) * 20, page * 20);
+  }
+
+  async update({
+    transactionId,
+    updatedData,
+  }: TransactionUpdateParams): Promise<Transaction> {
+    const tIndex = this.Transactions.findIndex((t) => t.id === transactionId);
+
+    if (tIndex === -1) throw new Error("Transaction not found");
+
+    if (updatedData.amount)
+      this.Transactions[tIndex].amount = updatedData.amount;
+    if (updatedData.categoryId)
+      this.Transactions[tIndex].categoryId = updatedData.categoryId;
+    if (updatedData.date)
+      this.Transactions[tIndex].date = new Date(updatedData.date);
+    if (updatedData.description)
+      this.Transactions[tIndex].description = updatedData.description;
+    if (updatedData.type) this.Transactions[tIndex].type = updatedData.type;
+
+    return this.Transactions[tIndex];
   }
 
   async delete(transactionId: string): Promise<string | null> {

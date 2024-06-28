@@ -6,6 +6,16 @@ export enum TransactionFilterType {
   INCOMES_AND_EXPENSES,
 }
 
+export interface TransactionUpdateParams {
+  transactionId: string;
+  updatedData: Partial<
+    Pick<
+      Prisma.TransactionUncheckedCreateInput,
+      "amount" | "categoryId" | "date" | "description" | "type"
+    >
+  >;
+}
+
 export interface FetchByUserIdAndTransactionCategoryIdParams {
   userId: string;
   categoryId: number;
@@ -31,5 +41,6 @@ export interface TransactionRepository {
   fetchByUserIdAndDate(
     data: FetchByUserIdAndDateParams
   ): Promise<Transaction[]>;
+  update(data: TransactionUpdateParams): Promise<Transaction>;
   delete(transactionId: string): Promise<string | null>;
 }
