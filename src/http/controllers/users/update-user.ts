@@ -30,5 +30,7 @@ export async function UpdateUser(req: FastifyRequest, reply: FastifyReply) {
     if (err instanceof ResourceNotFoundError) {
       return reply.status(404).send({ message: err.message });
     }
+
+    throw err;
   }
 }

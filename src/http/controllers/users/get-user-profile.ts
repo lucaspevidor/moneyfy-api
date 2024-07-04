@@ -17,5 +17,7 @@ export async function GetUserProfile(req: FastifyRequest, reply: FastifyReply) {
     if (err instanceof ResourceNotFoundError) {
       reply.status(404).send({ message: err.message });
     }
+
+    throw err;
   }
 }
