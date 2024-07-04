@@ -1,12 +1,13 @@
 import fastify from "fastify";
 
-import jwt from "@fastify/jwt";
 import cookie from "@fastify/cookie";
+import jwt from "@fastify/jwt";
 
 import { routes } from "@/routes";
-import { env } from "./env";
-import { usersRoutes } from "./http/controllers/users/routes";
 import { ZodError } from "zod";
+import { env } from "./env";
+import { transactionCategoryRoutes } from "./http/controllers/transaction-categories/routes";
+import { usersRoutes } from "./http/controllers/users/routes";
 
 const app = fastify();
 
@@ -25,6 +26,7 @@ app.register(cookie);
 
 app.register(routes);
 app.register(usersRoutes);
+app.register(transactionCategoryRoutes);
 
 app.setErrorHandler((error, request, reply) => {
   if (error instanceof ZodError) {
