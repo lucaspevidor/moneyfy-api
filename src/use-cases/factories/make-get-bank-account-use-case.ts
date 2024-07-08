@@ -4,7 +4,7 @@ import { PrismaUsersRepository } from "@/repositories/prisma/prisma-users-reposi
 import { UsersRepository } from "@/repositories/user-repository";
 import { GetBankAccountUseCase } from "../get-bank-account";
 
-export async function MakeGetBankAccountUseCase() {
+export function MakeGetBankAccountUseCase() {
   const usersRepository: UsersRepository = new PrismaUsersRepository();
   const bankAccountRepository: BankAccountRepository =
     new PrismaBankAccountRepository();

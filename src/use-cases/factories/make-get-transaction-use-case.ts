@@ -4,7 +4,7 @@ import { TransactionRepository } from "@/repositories/transaction-repository";
 import { UsersRepository } from "@/repositories/user-repository";
 import { GetTransactionUseCase } from "../get-transaction";
 
-export async function MakeGetTransactionUseCase() {
+export function MakeGetTransactionUseCase() {
   const usersRepository: UsersRepository = new PrismaUsersRepository();
   const transactionRepository: TransactionRepository =
     new PrismaTransactionRepository();
