@@ -142,18 +142,27 @@ describe("Fetch transaction (e2e)", async () => {
     });
   });
 
-  it.only("Should filter transactions by transaction type", async () => {
-    const fetchResponse = await request(app.server)
+  it("Should filter transactions by transaction type", async () => {
+    const fetchExpensesResponse = await request(app.server)
       .get(`/transactions?type=EXPENSE`)
       .set("Authorization", `Bearer ${user.token}`)
       .send();
 
-    console.log(fetchResponse.body);
+    const fetchIncomesResponse = await request(app.server)
+      .get("/transactions?type=INCOME")
+      .set("Authorization", `Bearer ${user.token}`)
+      .send();
 
-    expect(fetchResponse.statusCode).toEqual(200);
-    expect(fetchResponse.body).toHaveLength(20);
-    fetchResponse.body.forEach((t) => {
+    expect(fetchExpensesResponse.statusCode).toEqual(200);
+    expect(fetchExpensesResponse.body).toHaveLength(15);
+    fetchExpensesResponse.body.forEach((t) => {
       expect(t.type).toEqual("EXPENSE");
+    });
+
+    expect(fetchIncomesResponse.statusCode).toEqual(200);
+    expect(fetchIncomesResponse.body).toHaveLength(15);
+    fetchIncomesResponse.body.forEach((t) => {
+      expect(t.type).toEqual("INCOME");
     });
   });
 });

@@ -67,6 +67,7 @@ export async function FetchTransactions(
     const { transactions } = await fetchTransactionsUseCase.execute({
       page,
       userId: req.user.sub,
+      transactionType,
     });
 
     return reply.status(200).send(transactions);
