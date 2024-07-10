@@ -26,8 +26,6 @@ export async function FetchTransactions(
   if (type === "EXPENSE") transactionType = TransactionFilterType.EXPENSES;
   if (type === "INCOME") transactionType = TransactionFilterType.INCOMES;
 
-  console.log({ type });
-
   try {
     if (categoryId !== undefined) {
       const fetchTransactionsByCategoryUseCase =
