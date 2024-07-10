@@ -34,7 +34,11 @@ export interface FetchByUserIdAndDateParams {
 export interface TransactionRepository {
   create(data: Prisma.TransactionUncheckedCreateInput): Promise<Transaction>;
   getById(transactionId: string): Promise<Transaction | null>;
-  fetchByUserId(userId: string, page: number): Promise<Transaction[]>;
+  fetchByUserId(
+    userId: string,
+    page: number,
+    transactionType: TransactionFilterType
+  ): Promise<Transaction[]>;
   fetchByUserIdAndTransactionCategoryId(
     data: FetchByUserIdAndTransactionCategoryIdParams
   ): Promise<Transaction[]>;

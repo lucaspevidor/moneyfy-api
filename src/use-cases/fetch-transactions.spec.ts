@@ -2,7 +2,8 @@ import { InMemoryBankAccountRepository } from "@/repositories/in-memory/in-memor
 import { InMemoryTransactionCategoryRepository } from "@/repositories/in-memory/in-memory-transaction-category-repository";
 import { InMemoryTransactionRepository } from "@/repositories/in-memory/in-memory-transaction-repository";
 import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
-import { describe, it, expect, beforeEach } from "vitest";
+import { TransactionFilterType } from "@/repositories/transaction-repository";
+import { beforeEach, describe, expect, it } from "vitest";
 import { ResourceNotFoundError } from "./errors/resource-not-found-error";
 import { FetchTransactionsUseCase } from "./fetch-transactions";
 
@@ -68,14 +69,17 @@ describe("Fetch Transactions use-case", () => {
     const { transactions: transactionList1 } = await sut.execute({
       page: 1,
       userId: user.id,
+      transactionType: TransactionFilterType.INCOMES_AND_EXPENSES,
     });
     const { transactions: transactionList2 } = await sut.execute({
       page: 2,
       userId: user.id,
+      transactionType: TransactionFilterType.INCOMES_AND_EXPENSES,
     });
     const { transactions: transactionList3 } = await sut.execute({
       page: 3,
       userId: user.id,
+      transactionType: TransactionFilterType.INCOMES_AND_EXPENSES,
     });
 
     expect(transactionList1).toHaveLength(20);
@@ -91,11 +95,61 @@ describe("Fetch Transactions use-case", () => {
     }
   });
 
+  it("Should fetch all user's income and expense filtered transactions", async () => {
+    const {
+      user1: user,
+      bankAccount1: bankAccount,
+      category1: category,
+    } = await createBaseObjects();
+
+    for (let i = 0; i < 24; i++) {
+      await transactionRepository.create({
+        amount: 10,
+        bankAccountId: bankAccount.id,
+        categoryId: category.id,
+        currency: bankAccount.currency,
+        date: new Date(),
+        description: `Transaction ${i}`,
+        type: i % 2 == 0 ? "EXPENSE" : "INCOME",
+        userId: user.id,
+      });
+    }
+
+    const { transactions: incomes } = await sut.execute({
+      page: 1,
+      userId: user.id,
+      transactionType: TransactionFilterType.INCOMES,
+    });
+    const { transactions: expenses } = await sut.execute({
+      page: 1,
+      userId: user.id,
+      transactionType: TransactionFilterType.EXPENSES,
+    });
+
+    expect(incomes).toHaveLength(12);
+    expect(expenses).toHaveLength(12);
+
+    for (let i = 0; i < 12; i++) {
+      expect(incomes[i]).toEqual(
+        expect.objectContaining({
+          type: `INCOME`,
+        })
+      );
+
+      expect(expenses[i]).toEqual(
+        expect.objectContaining({
+          type: "EXPENSE",
+        })
+      );
+    }
+  });
+
   it("Should throw when fetching transactions from an invalid user", async () => {
     await expect(() =>
       sut.execute({
         page: 1,
         userId: "Invalid user",
+        transactionType: TransactionFilterType.INCOMES_AND_EXPENSES,
       })
     ).rejects.toBeInstanceOf(ResourceNotFoundError);
   });

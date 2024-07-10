@@ -25,11 +25,27 @@ export class PrismaTransactionRepository implements TransactionRepository {
 
     return transaction;
   }
-  async fetchByUserId(userId: string, page: number): Promise<Transaction[]> {
+  async fetchByUserId(
+    userId: string,
+    page: number,
+    transactionType: TransactionFilterType
+  ): Promise<Transaction[]> {
+    const filter: Partial<
+      Pick<
+        Prisma.TransactionUncheckedCreateInput,
+        "userId" | "categoryId" | "type"
+      >
+    > = {
+      userId,
+    };
+
+    if (transactionType === TransactionFilterType.EXPENSES)
+      filter.type = "EXPENSE";
+    if (transactionType === TransactionFilterType.INCOMES)
+      filter.type = "INCOME";
+
     const transactions = await prisma.transaction.findMany({
-      where: {
-        userId,
-      },
+      where: filter,
       orderBy: {
         date: "desc",
       },

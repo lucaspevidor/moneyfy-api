@@ -1,4 +1,6 @@
 import { Prisma, Transaction } from "@prisma/client";
+import dayjs from "dayjs";
+import { randomUUID } from "node:crypto";
 import {
   FetchByUserIdAndDateParams,
   FetchByUserIdAndTransactionCategoryIdParams,
@@ -6,8 +8,6 @@ import {
   TransactionRepository,
   TransactionUpdateParams,
 } from "../transaction-repository";
-import { randomUUID } from "node:crypto";
-import dayjs from "dayjs";
 
 export class InMemoryTransactionRepository implements TransactionRepository {
   public Transactions: Transaction[] = [];
@@ -39,8 +39,19 @@ export class InMemoryTransactionRepository implements TransactionRepository {
     return transaction;
   }
 
-  async fetchByUserId(userId: string, page: number): Promise<Transaction[]> {
-    const transactions = this.Transactions.filter((t) => t.userId === userId);
+  async fetchByUserId(
+    userId: string,
+    page: number,
+    transactionType: TransactionFilterType
+  ): Promise<Transaction[]> {
+    let transactions = this.Transactions.filter((t) => t.userId === userId);
+
+    if (transactionType === TransactionFilterType.INCOMES) {
+      transactions = transactions.filter((t) => t.type === "INCOME");
+    } else if (transactionType === TransactionFilterType.EXPENSES) {
+      transactions = transactions.filter((t) => t.type === "EXPENSE");
+    }
+
     return transactions.slice((page - 1) * 20, page * 20);
   }
 
