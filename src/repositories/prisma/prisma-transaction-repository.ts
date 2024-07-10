@@ -1,3 +1,4 @@
+import { prisma } from "@/lib/prisma";
 import { $Enums, Prisma, Transaction } from "@prisma/client";
 import {
   FetchByUserIdAndDateParams,
@@ -6,7 +7,6 @@ import {
   TransactionRepository,
   TransactionUpdateParams,
 } from "../transaction-repository";
-import { prisma } from "@/lib/prisma";
 
 export class PrismaTransactionRepository implements TransactionRepository {
   async create(
@@ -34,7 +34,7 @@ export class PrismaTransactionRepository implements TransactionRepository {
         date: "desc",
       },
       take: 20,
-      skip: (1 - page) * 20,
+      skip: (page - 1) * 20,
     });
 
     return transactions;
@@ -92,7 +92,7 @@ export class PrismaTransactionRepository implements TransactionRepository {
         date: "desc",
       },
       take: 20,
-      skip: (1 - page) * 20,
+      skip: (page - 1) * 20,
     });
 
     return transactions;

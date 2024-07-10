@@ -6,7 +6,9 @@ import jwt from "@fastify/jwt";
 import { routes } from "@/routes";
 import { ZodError } from "zod";
 import { env } from "./env";
+import { bankAccountRoutes } from "./http/controllers/bank-accounts/routes";
 import { transactionCategoryRoutes } from "./http/controllers/transaction-categories/routes";
+import { transactionRoutes } from "./http/controllers/transactions/routes";
 import { usersRoutes } from "./http/controllers/users/routes";
 
 const app = fastify();
@@ -27,6 +29,8 @@ app.register(cookie);
 app.register(routes);
 app.register(usersRoutes);
 app.register(transactionCategoryRoutes);
+app.register(bankAccountRoutes);
+app.register(transactionRoutes);
 
 app.setErrorHandler((error, request, reply) => {
   if (error instanceof ZodError) {
