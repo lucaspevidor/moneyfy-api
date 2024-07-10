@@ -155,14 +155,14 @@ describe("Fetch transaction (e2e)", async () => {
 
     expect(fetchExpensesResponse.statusCode).toEqual(200);
     expect(fetchExpensesResponse.body).toHaveLength(15);
-    fetchExpensesResponse.body.forEach((t) => {
-      expect(t.type).toEqual("EXPENSE");
-    });
+    for (let i = 0; i < 15; i++) {
+      expect(fetchExpensesResponse.body[i].type).toEqual("EXPENSE");
+    }
 
     expect(fetchIncomesResponse.statusCode).toEqual(200);
     expect(fetchIncomesResponse.body).toHaveLength(15);
-    fetchIncomesResponse.body.forEach((t) => {
-      expect(t.type).toEqual("INCOME");
-    });
+    for (let i = 0; i < 15; i++) {
+      expect(fetchIncomesResponse.body[i].type).toEqual("INCOME");
+    }
   });
 });
